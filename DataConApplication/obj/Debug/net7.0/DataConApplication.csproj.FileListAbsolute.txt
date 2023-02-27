@@ -1,0 +1,15 @@
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/bin/Debug/net7.0/DataConApplication.deps.json
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/bin/Debug/net7.0/DataConApplication.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/bin/Debug/net7.0/DataConApplication.pdb
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/bin/Debug/net7.0/DataConCore.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/bin/Debug/net7.0/DataConCore.pdb
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.csproj.AssemblyReference.cache
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.GeneratedMSBuildEditorConfig.editorconfig
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.AssemblyInfoInputs.cache
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.AssemblyInfo.cs
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.csproj.CoreCompileInputs.cache
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.csproj.CopyComplete
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/refint/DataConApplication.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/DataConApplication.pdb
+/Users/witeem/Documents/GitHub/DataCon/DataConApplication/obj/Debug/net7.0/ref/DataConApplication.dll

@@ -1,0 +1,12 @@
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/bin/Debug/net7.0/DataConCore.deps.json
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/bin/Debug/net7.0/DataConCore.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/bin/Debug/net7.0/DataConCore.pdb
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.csproj.AssemblyReference.cache
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.GeneratedMSBuildEditorConfig.editorconfig
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.AssemblyInfoInputs.cache
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.AssemblyInfo.cs
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.csproj.CoreCompileInputs.cache
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/refint/DataConCore.dll
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/DataConCore.pdb
+/Users/witeem/Documents/GitHub/DataCon/DataConCore/obj/Debug/net7.0/ref/DataConCore.dll
