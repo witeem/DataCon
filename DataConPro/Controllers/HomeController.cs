@@ -4,6 +4,8 @@ using DataConPro.Models;
 using DataConApplication;
 using DataConPro.ViewModels;
 using DataConCore;
+using DataConCore.Handels;
+using Newtonsoft.Json;
 
 namespace DataConPro.Controllers;
 
@@ -11,22 +13,50 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IWxUserAppService _userAppService;
+    private readonly IConfiguration _configuration;
 
-    public HomeController(ILogger<HomeController> logger, IWxUserAppService userAppService)
+    public HomeController(ILogger<HomeController> logger, IWxUserAppService userAppService, IConfiguration configuration)
     {
         _logger = logger;
         _userAppService = userAppService;
+        _configuration = configuration;
     }
 
     public async Task<IActionResult> Index()
     {
-   
-        var result = await _userAppService.AppServiceTest();
-        UserViewModel entity = new UserViewModel(){ Name = result };
+
+        /*
+         * 直接通过业务层获取数据
+         * var result = await _userAppService.AppServiceTest();
+        List<UserViewModel> models = new List<UserViewModel>();
+        foreach (var item in result)
+        {
+            models.Add(new UserViewModel().MapFrom(item));
+        }*/
+
+
+        #region Nginx
+
+        /*
+         * 通过请求Nginx， Nginx反向代理转发请求 DataConApi服务获取数据
+        var result = ApiHandel.InvokeApi("http://localhost:8088/api/WxUser/Getuserlist", HttpMethod.Get);
+        */
+        #endregion
+
+        #region Consul 服务注册与发现
+        var urls = ConsulHandel.GetConsulServers("DataConApi", "api/WxUser/Getuserlist");
+        Random random = new Random();
+        var result = ApiHandel.InvokeApi(urls[random.Next(urls.Count)], HttpMethod.Get);
+        #endregion
+
+        List<UserViewModel> models = JsonConvert.DeserializeObject<List<UserViewModel>>(result);
+        ViewData["DataList"] = models;
+        ViewData["Da"] = models.FirstOrDefault();
+
         // 建表
         // var sqlDb = SqlSugarHandel.GetMySqlDb();
         // sqlDb.CodeFirst.InitTables<UserEntity>(); 
-        return View(entity);
+        return View();
     }
 
     public IActionResult Privacy()

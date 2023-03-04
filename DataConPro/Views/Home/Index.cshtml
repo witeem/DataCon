@@ -1,10 +1,22 @@
-﻿@model DataConPro.ViewModels.UserViewModel
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core"></a>@Model.Name</p>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">
+    @{UserViewModel userItem = (UserViewModel)ViewData["Da"];}
+          @userItem.WxName
+</a>.</p>
+    @{
+            var list = ViewData["DataList"] as List<UserViewModel>;
+        if (list?.Count > 0)
+        {
+            foreach (var item in ViewData["DataList"] as List<UserViewModel>)
+            {
+                <p>Learn about <a href="https://docs.microsoft.com/aspnet/core"></a>@item.WxName</p>
+            }
+        }
+    }
+
 </div>

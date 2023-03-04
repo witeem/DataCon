@@ -1,3 +1,5 @@
+using DataConCore.Handels;
+
 public static class ServicesProvider
 {
     public static void AddStartupConfigServices(this IServiceCollection services, Type iType)
@@ -16,5 +18,17 @@ public static class ServicesProvider
                 services.AddScoped(s, type);
             });
         }
+    }
+
+    public static void ConsulRegist(this IConfiguration configuration, string[] tags)
+    {
+        ConsulHandel.ConsulRegist(new DataConCore.Handels.HandelDto.ConsulSetting
+        {
+            ServerName = "DataConApi",
+            Ip = configuration["ip"],
+            Port = int.Parse(configuration["port"]),
+            HealthPath = "healthz",
+            Tags = tags
+        });
     }
 }

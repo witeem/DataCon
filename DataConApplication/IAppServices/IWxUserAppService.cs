@@ -1,6 +1,8 @@
+using DataConCore.TableEntitys;
+
 namespace DataConApplication;
 
 public interface IWxUserAppService : IAppServers
 {
-    Task<string> AppServiceTest();
+    Task<List<UserEntity>> AppServiceTest();
 }
