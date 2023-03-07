@@ -14,6 +14,7 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly IWxUserAppService _userAppService;
     private readonly IConfiguration _configuration;
+    private static int serverIndex = 0;
 
     public HomeController(ILogger<HomeController> logger, IWxUserAppService userAppService, IConfiguration configuration)
     {
@@ -45,8 +46,23 @@ public class HomeController : Controller
 
         #region Consul 服务注册与发现
         var urls = ConsulHandel.GetConsulServers("DataConApi", "api/WxUser/Getuserlist");
-        Random random = new Random();
+
+        /*
+         * 轮询策略
+        var result = ApiHandel.InvokeApi(urls[serverIndex++ % urls.Count], HttpMethod.Get);*/
+
+        
+        // 平均策略
+        Random random = new Random(serverIndex++);
         var result = ApiHandel.InvokeApi(urls[random.Next(urls.Count)], HttpMethod.Get);
+        
+
+        /*
+         * 
+         
+         */
+
+        
         #endregion
 
         List<UserViewModel> models = JsonConvert.DeserializeObject<List<UserViewModel>>(result);

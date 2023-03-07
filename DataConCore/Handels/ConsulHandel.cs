@@ -16,7 +16,7 @@ namespace DataConCore.Handels
 
 			client.Agent.ServiceRegister(new AgentServiceRegistration
 			{
-				ID = $"server-{setting.ServerName}-{setting.Ip}-{setting.Port}",
+				ID = Guid.NewGuid().ToString(),
 				Name =  setting.ServerName,
 				Address = setting.Ip,
 				Port = setting.Port,
@@ -24,7 +24,7 @@ namespace DataConCore.Handels
 				Check = new AgentServiceCheck()
 				{
 					Interval = TimeSpan.FromSeconds(12),
-                    HTTP = $"http://localhost:{setting.Port}/healthz",
+                    HTTP = $"http://{setting.Ip}:{setting.Port}/healthz",
                     // HTTP = "http://127.0.0.1:5726/healthz",
                     Timeout = TimeSpan.FromSeconds(5),
 					DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(30)
@@ -52,6 +52,35 @@ namespace DataConCore.Handels
 			}
 
 			return urls;
+        }
+
+		public static List<string> GetConsulServersWithWeight(string serverName, string method)
+		{
+            ConsulClient client = new ConsulClient(c =>
+            {
+                c.Address = new Uri("http://localhost:8500/");
+                c.Datacenter = "dc1";
+            });
+
+            List<string> urls = new List<string>();
+            var response = client.Agent.Services().Result.Response;
+            if (response != null)
+            {
+                var servers = response.Where(m => m.Value.Service.Equals(serverName, StringComparison.OrdinalIgnoreCase)).ToArray();
+                foreach (var item in servers)
+                {
+					if (item.Value.Tags?[0] != null)
+					{
+						int itemCount = int.Parse(item.Value.Tags[0]);
+						for (int i = 0; i < itemCount; i++)
+						{
+                            urls.Add($"http://{item.Value.Address}:{item.Value.Port}/{method}");
+                        }
+					}                   
+                }
+            }
+
+            return urls;
         }
 	}
 }

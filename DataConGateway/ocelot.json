@@ -1,0 +1,32 @@
+﻿{
+  "ReRoutes": [
+    {
+
+      "DownstreamPathTemplate": "/{url}", // 下游服务转发地址模板
+      "DownstreamScheme": "http", // 下游服务http schema
+      "UpstreamPathTemplate": "/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "LoadBalancerOptions": { //负载均衡的算法
+        "Type": "LeastConnection" // LeastConnection – 将请求发往最空闲的那个服务器;  RoundRobin – 轮流发送; NoLoadBalance – 总是发往第一个请求或者是服务发现
+      },
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 5726
+      //  }
+      //],
+      "UseServiceDiscovery": true,
+      "ServiceName": "DataConApi"
+    }
+  ],
+  "GlobalConfiguration": {
+    "ReRouteIsCaseSensitive": false, // 路由是否区分大小写
+    "RequestIdKey": "OcRequestId",
+    "BaseUrl": "http://localhost:5000",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}
