@@ -1,5 +1,15 @@
 ﻿{
-  "ReRoutes": [
+  "GlobalConfiguration": {
+    "ReRouteIsCaseSensitive": false, // 路由是否区分大小写
+    "RequestIdKey": "OcRequestId",
+    "BaseUrl": "http://localhost:5000",
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  },
+  "Routes": [
     {
 
       "DownstreamPathTemplate": "/{url}", // 下游服务转发地址模板
@@ -18,15 +28,5 @@
       "UseServiceDiscovery": true,
       "ServiceName": "DataConApi"
     }
-  ],
-  "GlobalConfiguration": {
-    "ReRouteIsCaseSensitive": false, // 路由是否区分大小写
-    "RequestIdKey": "OcRequestId",
-    "BaseUrl": "http://localhost:5000",
-    "ServiceDiscoveryProvider": {
-      "Host": "localhost",
-      "Port": 8500,
-      "Type": "Consul"
-    }
-  }
+  ]
 }
