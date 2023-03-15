@@ -7,7 +7,7 @@ using SqlSugar;
 
 namespace DataConCore.TableEntitys
 {
-    public class UserEntity : BaseEntity<UserEntity>
+    public class UserEntity : BaseEntity
     {
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public long Id { get; set; }

@@ -72,6 +72,7 @@ public class HomeController : Controller
         // 建表
         // var sqlDb = SqlSugarHandel.GetMySqlDb();
         // sqlDb.CodeFirst.InitTables<UserEntity>(); 
+        await Task.CompletedTask;
         return View();
     }
 

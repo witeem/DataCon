@@ -29,6 +29,17 @@ namespace DataConApi.Controllers
             var list = await _wxUserAppService.AppServiceTest();
             return Ok(list);
         }
+
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("MyTest")]
+        public async Task<IActionResult> MyTestAsync()
+        {
+            var result = await _wxUserAppService.MyTestAsync();
+            return Ok(result);
+        }
     }
 }
 
