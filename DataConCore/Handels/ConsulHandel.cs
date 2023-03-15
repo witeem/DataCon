@@ -8,13 +8,13 @@ namespace DataConCore.Handels
 	{
 		public static void ConsulRegist(ConsulSetting setting)
 		{
-			ConsulClient client = new ConsulClient(c =>
+			var consulClient = new ConsulClient(c =>
 			{
-				c.Address = new Uri("http://localhost:8500/");
-				c.Datacenter = "dc1";
+				c.Address = new Uri(setting.ConsulService);
+				c.Datacenter = setting.Datacenter;
 			});
 
-			client.Agent.ServiceRegister(new AgentServiceRegistration
+			consulClient.Agent.ServiceRegister(new AgentServiceRegistration
 			{
 				ID = Guid.NewGuid().ToString(),
 				Name =  setting.ServerName,
@@ -32,16 +32,16 @@ namespace DataConCore.Handels
 			});
 		}
 
-		public static List<string> GetConsulServers(string serverName, string method)
+		public static List<string> GetConsulServers(string consulService, string datacenter, string serverName, string method)
 		{
-            ConsulClient client = new ConsulClient(c =>
-            {
-                c.Address = new Uri("http://localhost:8500/");
-                c.Datacenter = "dc1";
-            });
+			var consulClient = new ConsulClient(c =>
+			{
+				c.Address = new Uri(consulService);
+				c.Datacenter = datacenter;
+			});
 
 			List<string> urls = new List<string>();
-			var response = client.Agent.Services().Result.Response;
+			var response = consulClient.Agent.Services().Result.Response;
 			if (response != null)
 			{
 				var servers = response.Where(m => m.Value.Service.Equals(serverName, StringComparison.OrdinalIgnoreCase)).ToArray();
@@ -54,16 +54,16 @@ namespace DataConCore.Handels
 			return urls;
         }
 
-		public static List<string> GetConsulServersWithWeight(string serverName, string method)
+		public static List<string> GetConsulServersWithWeight(string consulService, string datacenter, string serverName, string method)
 		{
-            ConsulClient client = new ConsulClient(c =>
-            {
-                c.Address = new Uri("http://localhost:8500/");
-                c.Datacenter = "dc1";
-            });
+			var consulClient = new ConsulClient(c =>
+			{
+				c.Address = new Uri(consulService);
+				c.Datacenter = datacenter;
+			});
 
-            List<string> urls = new List<string>();
-            var response = client.Agent.Services().Result.Response;
+			List<string> urls = new List<string>();
+            var response = consulClient.Agent.Services().Result.Response;
             if (response != null)
             {
                 var servers = response.Where(m => m.Value.Service.Equals(serverName, StringComparison.OrdinalIgnoreCase)).ToArray();

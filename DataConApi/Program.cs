@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.Configuration. ti(args);
+// app.Configuration.ConsulRegist(args);
 app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/healthz");

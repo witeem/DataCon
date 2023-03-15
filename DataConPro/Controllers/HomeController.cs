@@ -45,7 +45,7 @@ public class HomeController : Controller
         #endregion
 
         #region Consul 服务注册与发现
-        var urls = ConsulHandel.GetConsulServers("DataConApi", "api/WxUser/Getuserlist");
+        var urls = ConsulHandel.GetConsulServers("http://localhost:8500/", "dc1", "DataConApi", "api/WxUser/Getuserlist");
 
         /*
          * 轮询策略

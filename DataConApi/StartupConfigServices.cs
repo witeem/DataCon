@@ -42,6 +42,8 @@ public static class ServicesProvider
     {
         ConsulHandel.ConsulRegist(new DataConCore.Handels.HandelDto.ConsulSetting
         {
+            ConsulService = "http://localhost:8500/",
+            Datacenter = "dc1",
             ServerName = "DataConApi",
             Ip = configuration["ip"],
             Port = int.Parse(configuration["port"]),
