@@ -1,36 +1,45 @@
+using DataCon.IApplication;
 using DataCon.IRepositories;
-using DataCon.IRepositories.WxUser;
 using DataCon.Repositories;
-using DataCon.Repositories.WxUser;
+using DataConCore;
 using DataConCore.Handels;
-using DataConCore.TableEntitys;
-using Scrutor;
 
 public static class ServicesProvider
 {
-    public static void AddStartupConfigServices(this IServiceCollection services, Type iType)
+    public static void AddStartupConfigServices(this IServiceCollection services, List<Type> types)
     {
-        List<Type> types = AppDomain.CurrentDomain
-                            .GetAssemblies()
-                            .SelectMany(m=>m.GetTypes())
-                            .Where(t=> iType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
-                            .ToList();
+        //List<Type> types = AppDomain.CurrentDomain
+        //                    .GetAssemblies()
+        //                    .SelectMany(m=>m.GetTypes())
+        //                    .Where(t=> iType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
+        //                    .ToList();
 
-        foreach (Type type in types)
+        //foreach (Type type in types)
+        //{
+        //    Type[] interfaces = type.GetInterfaces();
+        //    interfaces.ToList().ForEach(s =>
+        //    {
+        //        services.AddScoped(s, type);
+        //    });
+        //}
+
+        services.Scan(scan =>
         {
-            Type[] interfaces = type.GetInterfaces();
-            interfaces.ToList().ForEach(s =>
-            {
-                services.AddScoped(s, type);
-            });
-        }
+            scan.FromAssembliesOf(types.ToArray())
+            .AddClasses(classes => classes.AssignableTo<IAppServers>())
+            .AsImplementedInterfaces()
+            .WithSingletonLifetime()
+            .AddClasses(classes => classes.AssignableTo<IAppCore>())
+            .AsImplementedInterfaces()
+            .WithSingletonLifetime();
+        });
     }
 
     public static void AddRepositories(this IServiceCollection services)
     {
-        Type iType = typeof(IBaseRepositories<>);
         List<Type> types = new List<Type> { typeof(BaseRepositories<>) };
-        services.Scan(scan => {
+        services.Scan(scan =>
+        {
             scan.FromAssembliesOf(types.ToArray())
             .AddClasses(classes => classes.AssignableTo<IAppRepositories>())
             .AsImplementedInterfaces()

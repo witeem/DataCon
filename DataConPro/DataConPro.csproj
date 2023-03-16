@@ -10,8 +10,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataConApplication\DataConApplication.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\DataCon.IApplication\DataCon.IApplication.csproj" />
   </ItemGroup>
 </Project>

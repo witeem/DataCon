@@ -1,4 +1,4 @@
-using DataConApplication;
+using DataCon.IApplication;
 using DataConCore;
 
 var builder = WebApplication.CreateBuilder(args);

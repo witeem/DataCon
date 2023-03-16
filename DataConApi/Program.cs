@@ -1,9 +1,6 @@
-﻿using DataCon.IRepositories;
-using DataConApplication;
+﻿using DataCon.Application;
+using DataCon.IApplication;
 using DataConCore;
-using DataConCore.Handels.HandelDto;
-using DataConCore.TableEntitys;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 new ConfigurationBuilder()
@@ -16,8 +13,7 @@ builder.Services.AddHealthChecks();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddStartupConfigServices(typeof(IAppServers));
-builder.Services.AddStartupConfigServices(typeof(IAppCore));
+builder.Services.AddStartupConfigServices(new List<Type> { typeof(BaseApplication), typeof(IAppCore) });
 builder.Services.AddRepositories();
 var app = builder.Build();
 

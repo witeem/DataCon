@@ -12,9 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataCon.Application\DataCon.Application.csproj" />
+    <ProjectReference Include="..\DataCon.IApplication\DataCon.IApplication.csproj" />
     <ProjectReference Include="..\DataCon.Repositories\DataCon.Repositories.csproj" />
-    <ProjectReference Include="..\DataConApplication\DataConApplication.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
   </ItemGroup>
 </Project>
