@@ -36,6 +36,30 @@ namespace DataConApi.Controllers
             var result = await _wxUserAppService.MyTestAsync();
             return Ok(result);
         }
+
+        /// <summary>
+        /// MQ生产者
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("SendMq")]
+        public async Task<IActionResult> SendMqAsync()
+        {
+            var result = _wxUserAppService.SendMqAsync();
+            await Task.CompletedTask;
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// MQ 消费者
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ExpendMq")]
+        public async Task<IActionResult> ExpendMqAsync()
+        {
+            var result = _wxUserAppService.ExpendMqAsync();
+            await Task.CompletedTask;
+            return Ok(result);
+        }
     }
 }
 

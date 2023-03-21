@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCon.IRepositories", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCon.Repositories", "DataCon.Repositories\DataCon.Repositories.csproj", "{B2FCE0C3-BFE5-44A8-AA5E-D3227B458575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCon.IApplication", "DataCon.IApplication\DataCon.IApplication.csproj", "{953E0732-325E-418F-A3E7-B989244C0F4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCon.IApplication", "DataCon.IApplication\DataCon.IApplication.csproj", "{953E0732-325E-418F-A3E7-B989244C0F4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCon.Application", "DataCon.Application\DataCon.Application.csproj", "{27B10CE3-582F-4363-9ED2-7CF840A2A870}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCon.Application", "DataCon.Application\DataCon.Application.csproj", "{27B10CE3-582F-4363-9ED2-7CF840A2A870}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

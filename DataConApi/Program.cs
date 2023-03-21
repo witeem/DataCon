@@ -11,10 +11,12 @@ new ConfigurationBuilder()
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.MqProducerRegist(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddStartupConfigServices(new List<Type> { typeof(BaseApplication), typeof(IAppCore) });
 builder.Services.AddRepositories();
+builder.Services.AddLazyResolution();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
