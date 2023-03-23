@@ -11,4 +11,6 @@ public interface IWxUserAppService : IAppServers
     string SendMqAsync();
 
     string ExpendMqAsync();
+
+    string CloseExpendMqAsync();
 }

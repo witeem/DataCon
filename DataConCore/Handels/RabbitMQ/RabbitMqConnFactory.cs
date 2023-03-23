@@ -9,7 +9,6 @@ namespace DataConCore.Handels.RabbitMQ
 {
     public class RabbitMqConnFactory
     {
-
         public static IConnection GetConnector(RabbitMqOptions options)
         {
             return options.Hosts.Count == 1 ? GetConnection(options) : GetClusterConnection(options);
@@ -27,7 +26,7 @@ namespace DataConCore.Handels.RabbitMQ
                 Password = options.Connector.Password,
                 DispatchConsumersAsync = options.Connector.ConsumersAsunc,
                 AutomaticRecoveryEnabled = true,
-                // VirtualHost = options.Connector.VirtualHost
+                VirtualHost = String.IsNullOrEmpty(options.Connector.VirtualHost) ? "/" : options.Connector.VirtualHost
             };
 
             return factory.CreateConnection();
@@ -40,7 +39,7 @@ namespace DataConCore.Handels.RabbitMQ
                 UserName = options.Connector.UserName, // 账户
                 Password = options.Connector.Password, // 密码
                 DispatchConsumersAsync = options.Connector.ConsumersAsunc, // 支持异步发送消息
-                VirtualHost = options.Connector.VirtualHost   // 虚拟主机
+                VirtualHost = String.IsNullOrEmpty(options.Connector.VirtualHost) ? "/" : options.Connector.VirtualHost  // 虚拟主机
             };
             var list = options.Hosts.Select(s => new AmqpTcpEndpoint
             {

@@ -39,7 +39,7 @@ namespace DataConCore.Handels.RabbitMQ
         /// <summary>
         /// 路由交换机
         /// </summary>
-        public string Exchange { get; set; }
+        public string Exchange { get; set; } = "";
 
         /// <summary>
         /// 路由交换机 类型

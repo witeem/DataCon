@@ -10,5 +10,7 @@ namespace DataConCore.Handels.RabbitMQ
     public interface IRabbitMqConsumer
     {
         void AMQPC(Action<IModel, RabbitMqQueue> action);
+
+        void Disponse();
     }
 }

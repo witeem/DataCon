@@ -53,31 +53,13 @@ public class WxUserAppService : BaseApplication, IWxUserAppService
     public string SendMqAsync()
     {
         var mqProducer = _mqProvider.RegisterProducer(queue => { queue.Name = "queue2"; });
-        mqProducer.AMQP((channel, msg) =>
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                string message = $"RabbitMQ Worker {i + 1} Message";
-                var body = Encoding.UTF8.GetBytes(message);
-                channel.ConfirmSelect(); // 开启消息确认模式
-                channel.BasicPublish("", msg.Name, true, null, body);
-                if (channel.WaitForConfirms())
-                {
-                    Console.WriteLine("send Task {0} message", i + 1);
-                }
-                else 
-                {
-                    Console.WriteLine("Error send Task {0} message", i + 1);
-                }
-            }
-        });
-
+        mqProducer.BasicPublish("queueMsg", false);
         return "success";
     }
 
     public string ExpendMqAsync()
     {
-        var mqConsume = _mqProvider.RegisterConsumer(queue => { queue.Name = "queue2"; });
+        var mqConsume = _mqProvider.RegisterConsumer(queue => { queue.Name = "queue2"; }, "consumer1");
         mqConsume.AMQPC((channel, msg) =>
         {
             var consumer = new EventingBasicConsumer(channel);
@@ -91,7 +73,13 @@ public class WxUserAppService : BaseApplication, IWxUserAppService
             };
         });
 
-        // await Task.WhenAll(tasks.ToArray());
+        return "success";
+    }
+
+    public string CloseExpendMqAsync()
+    {
+        var mqConsume = _mqProvider.RegisterConsumer(queue => { queue.Name = "queue2"; }, "consumer1");
+        mqConsume.Disponse();
         return "success";
     }
 }

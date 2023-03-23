@@ -83,24 +83,6 @@ public static class ServicesProvider
     }
 
     /// <summary>
-    /// RabbitMq 消费者服务注入
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configuration"></param>
-    public static void MqConsumerRegist(this IServiceCollection services, IConfiguration configuration)
-    {
-        var options = configuration.GetSection("RabbitMqOptions").Get<RabbitMqOptions>();
-        if (options.Hosts?.Count > 0)
-        {
-            services.AddSingleton(typeof(IRabbitMqProducer), (serviceProvider) =>
-            {
-                var mqProducer = new RabbitMqProducer(JsonConvert.SerializeObject(options));
-                return mqProducer;
-            });
-        }
-    }
-
-    /// <summary>
     /// Consol 服务注入
     /// </summary>
     /// <param name="configuration"></param>

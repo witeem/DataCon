@@ -18,13 +18,13 @@ namespace DataConCore.Handels.RabbitMQ
             _connOptions = connOptions.CurrentValue;
         }
 
-        public IRabbitMqProducer RegisterProducer(Action<RabbitMqQueue> config)
+        public IRabbitMqProducer RegisterProducer(Action<RabbitMqQueue> config, string cacheN = "")
         {
             _mqProducer = new RabbitMqProducer(config, JsonConvert.SerializeObject(_connOptions));
             return _mqProducer;
         }
 
-        public IRabbitMqConsumer RegisterConsumer(Action<RabbitMqQueue> config)
+        public IRabbitMqConsumer RegisterConsumer(Action<RabbitMqQueue> config, string cacheN = "")
         {
             _mqConsumer = new RabbitMqConsumer(config, JsonConvert.SerializeObject(_connOptions));
             return _mqConsumer;

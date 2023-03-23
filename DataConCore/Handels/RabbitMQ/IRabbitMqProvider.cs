@@ -8,8 +8,8 @@ namespace DataConCore.Handels.RabbitMQ
 {
     public interface IRabbitMqProvider
     {
-        IRabbitMqProducer RegisterProducer(Action<RabbitMqQueue> config);
+        IRabbitMqProducer RegisterProducer(Action<RabbitMqQueue> config, string cacheN = "");
 
-        IRabbitMqConsumer RegisterConsumer(Action<RabbitMqQueue> config);
+        IRabbitMqConsumer RegisterConsumer(Action<RabbitMqQueue> config, string cacheN = "");
     }
 }

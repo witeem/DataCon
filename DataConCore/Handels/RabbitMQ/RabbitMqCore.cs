@@ -11,7 +11,7 @@ namespace DataConCore.Handels.RabbitMQ
 {
     public abstract class RabbitMqCore
     {
-        private readonly IDictionary<string, IConnection> _connectionCache = new ConcurrentDictionary<string, IConnection>();
+        private static readonly IDictionary<string, IConnection> _connectionCache = new ConcurrentDictionary<string, IConnection>();
         private readonly SemaphoreSlim _connectLock = new SemaphoreSlim(1, 1);
         public RabbitMqQueue RabbitMqueue { get; set; }
 
@@ -38,13 +38,22 @@ namespace DataConCore.Handels.RabbitMQ
         /// <param name="optionStr"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public virtual IConnection Connect(string optionStr)
+        public virtual IConnection Connect(string optionStr, string cacheN)
         {
             var options = GetOptions(optionStr);
             if (options == null || options.Connector == null)
                 throw new ArgumentNullException("请先配置RabbitMq连接参数");
 
-            return GetConnect(options);
+            return GetConnect(options, cacheN);
+        }
+
+        /// <summary>
+        /// 根据缓存key清空缓存
+        /// </summary>
+        /// <param name="cacheN"></param>
+        public void Disponse(string cacheN)
+        {
+            if (_connectionCache.ContainsKey(cacheN)) _connectionCache.Remove(cacheN);
         }
 
         /// <summary>
@@ -53,22 +62,22 @@ namespace DataConCore.Handels.RabbitMQ
         /// <param name="channel"></param>
         /// <param name="mg"></param>
         /// <returns></returns>
-        public abstract IModel Build(IModel channel, RabbitMqQueue mg);
+        protected abstract IModel Build(IModel channel, RabbitMqQueue mg);
 
         #region 私有方法
 
-        private IConnection GetConnect(RabbitMqOptions options)
+        private IConnection GetConnect(RabbitMqOptions options, string cachaN)
         {
             _connectLock.Wait();
             try
             {
-                if (_connectionCache.TryGetValue(options.Connector.VirtualHost, out IConnection connection))
+                if (_connectionCache.TryGetValue(cachaN, out IConnection connection))
                 {
                     return connection;
                 }
 
                 connection = RabbitMqConnFactory.GetConnector(options);
-                _connectionCache[options.Connector.VirtualHost] = connection;
+                _connectionCache[cachaN] = connection;
                 return connection;
             }
             finally

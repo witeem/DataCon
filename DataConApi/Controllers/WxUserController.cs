@@ -60,6 +60,18 @@ namespace DataConApi.Controllers
             await Task.CompletedTask;
             return Ok(result);
         }
+
+        /// <summary>
+        /// MQ 消费者
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CloseExpendMq")]
+        public async Task<IActionResult> CloseExpendMqAsync()
+        {
+            var result = _wxUserAppService.CloseExpendMqAsync();
+            await Task.CompletedTask;
+            return Ok(result);
+        }
     }
 }
 
