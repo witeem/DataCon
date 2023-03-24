@@ -4,6 +4,7 @@ using DataCon.Repositories;
 using DataConApi;
 using DataConCore;
 using DataConCore.Handels;
+using DataConCore.Handels.Consul;
 using DataConCore.Handels.RabbitMQ;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -11,41 +12,26 @@ using RabbitMQ.Client;
 public static class ServicesProvider
 {
     /// <summary>
-    /// Application·şÎñ×¢Èë
+    /// ApplicationæœåŠ¡æ³¨å…¥
     /// </summary>
     /// <param name="services"></param>
     /// <param name="types"></param>
     public static void AddStartupConfigServices(this IServiceCollection services, List<Type> types)
     {
-        //List<Type> types = AppDomain.CurrentDomain
-        //                    .GetAssemblies()
-        //                    .SelectMany(m=>m.GetTypes())
-        //                    .Where(t=> iType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
-        //                    .ToList();
-
-        //foreach (Type type in types)
-        //{
-        //    Type[] interfaces = type.GetInterfaces();
-        //    interfaces.ToList().ForEach(s =>
-        //    {
-        //        services.AddScoped(s, type);
-        //    });
-        //}
-
         services.Scan(scan =>
         {
             scan.FromAssembliesOf(types.ToArray())
             .AddClasses(classes => classes.AssignableTo<IAppServers>())
             .AsImplementedInterfaces()
-            .WithScopedLifetime()
+            .WithSingletonLifetime()
             .AddClasses(classes => classes.AssignableTo<IAppCore>())
             .AsImplementedInterfaces()
-            .WithScopedLifetime();
+            .WithSingletonLifetime();
         });
     }
 
     /// <summary>
-    /// ²Ö´¢·şÎñ×¢Èë
+    /// ä»“å‚¨æœåŠ¡æ³¨å…¥
     /// </summary>
     /// <param name="services"></param>
     public static void AddRepositories(this IServiceCollection services)
@@ -61,7 +47,7 @@ public static class ServicesProvider
     }
 
     /// <summary>
-    /// ÀÁ¼ÓÔØ·şÎñÈİÆ÷×¢Èë
+    /// æ‡’åŠ è½½æœåŠ¡å®¹å™¨æ³¨å…¥
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
@@ -71,7 +57,7 @@ public static class ServicesProvider
     }
 
     /// <summary>
-    /// RabbitMq Éú²úÕß·şÎñ×¢Èë
+    /// RabbitMq æ„é€ å™¨æ³¨å…¥
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configuration"></param>
@@ -79,11 +65,11 @@ public static class ServicesProvider
     {
         var options = configuration.GetSection("RabbitMqOptions");
         services.Configure<RabbitMqOptions>(options);
-        services.AddScoped<IRabbitMqProvider, RabbitMqProvider>();
+        services.AddSingleton<IRabbitMqProvider, RabbitMqProvider>();
     }
 
     /// <summary>
-    /// Consol ·şÎñ×¢Èë
+    /// Consol æœåŠ¡æ³¨å…¥
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="tags"></param>
@@ -99,5 +85,23 @@ public static class ServicesProvider
             HealthPath = "healthz",
             Tags = tags
         });
+    }
+
+    public static IHost UseConsulRegist(this IHost host, IConfiguration configuration)
+    {
+        // è·å–ä¸»æœºç”Ÿå‘½å‘¨æœŸç®¡ç†æ¥å£
+        var lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
+
+        var options = configuration.GetSection("Consul");
+        var optionsDto = options.Get<ConsulOptions>();
+        var client = ConsulRegister.Init(optionsDto);
+
+        //åº”ç”¨ç¨‹åºç»ˆæ­¢æ—¶,æ³¨é”€æœåŠ¡
+        lifetime.ApplicationStopping.Register(() =>
+        {
+            client.Agent.ServiceDeregister($"service:{optionsDto.ServicePath}:{optionsDto.ServicePort}").Wait();
+        });
+
+        return host;
     }
 }
