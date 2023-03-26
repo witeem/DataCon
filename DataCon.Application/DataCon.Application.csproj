@@ -15,4 +15,10 @@
     <ProjectReference Include="..\DataCon.IRepositories\DataCon.IRepositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Menu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Menu\" />
+  </ItemGroup>
 </Project>

@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCon.IApplication", "Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCon.Application", "DataCon.Application\DataCon.Application.csproj", "{27B10CE3-582F-4363-9ED2-7CF840A2A870}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConMenu", "DataConMenu\DataConMenu.csproj", "{3D61209D-9791-45AB-82FA-4B083C21C749}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{27B10CE3-582F-4363-9ED2-7CF840A2A870}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27B10CE3-582F-4363-9ED2-7CF840A2A870}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27B10CE3-582F-4363-9ED2-7CF840A2A870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D61209D-9791-45AB-82FA-4B083C21C749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D61209D-9791-45AB-82FA-4B083C21C749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D61209D-9791-45AB-82FA-4B083C21C749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D61209D-9791-45AB-82FA-4B083C21C749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

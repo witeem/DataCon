@@ -10,4 +10,10 @@
     <ProjectReference Include="..\DataConCore\DataConCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Menu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Menu\" />
+  </ItemGroup>
 </Project>

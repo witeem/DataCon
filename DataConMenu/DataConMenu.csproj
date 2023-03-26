@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="Scrutor" Version="4.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataCon.IApplication\DataCon.IApplication.csproj" />
+    <ProjectReference Include="..\DataCon.Application\DataCon.Application.csproj" />
+    <ProjectReference Include="..\DataConCore\DataConCore.csproj" />
+    <ProjectReference Include="..\DataCon.Repositories\DataCon.Repositories.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="LazyHandles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LazyHandles\" />
+  </ItemGroup>
+</Project>
