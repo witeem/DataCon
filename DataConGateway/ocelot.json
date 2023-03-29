@@ -1,4 +1,5 @@
 ﻿{
+  "MySqlConnection": "database=OcelotDB; Data Source=127.0.0.1; User Id =root; password=weitianhua;",
   "GlobalConfiguration": {
     "ReRouteIsCaseSensitive": false, // 路由是否区分大小写
     "RequestIdKey": "OcRequestId",

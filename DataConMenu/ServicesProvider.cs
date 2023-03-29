@@ -67,25 +67,6 @@ public static class ServicesProvider
         services.AddSingleton<IRabbitMqProvider, RabbitMqProvider>();
     }
 
-    /// <summary>
-    /// Consol 服务注入
-    /// </summary>
-    /// <param name="configuration"></param>
-    /// <param name="tags"></param>
-    public static void ConsulRegist(this IConfiguration configuration, string[] tags)
-    {
-        ConsulHandel.ConsulRegist(new DataConCore.Handels.HandelDto.ConsulSetting
-        {
-            ConsulService = "http://localhost:8500/",
-            Datacenter = "dc1",
-            ServerName = "DataConApi",
-            Ip = configuration["ip"],
-            Port = int.Parse(configuration["port"]),
-            HealthPath = "healthz",
-            Tags = tags
-        });
-    }
-
     public static IHost UseConsulRegist(this IHost host, IConfiguration configuration)
     {
         // 获取主机生命周期管理接口

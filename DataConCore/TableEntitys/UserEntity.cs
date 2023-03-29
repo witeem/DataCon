@@ -19,9 +19,5 @@ namespace DataConCore.TableEntitys
         public string Avator { get; set; }
 
         public int Age { get; set; }
-
-        public DateTime CreateTime { get; set; }
-
-        public int IsDel { get; set; }
     }
 }

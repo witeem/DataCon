@@ -1,37 +1,9 @@
-﻿using System;
-using Consul;
-using DataConCore.Handels.HandelDto;
+﻿using Consul;
 
 namespace DataConCore.Handels
 {
-	public static class ConsulHandel
+    public static class ConsulHandel
 	{
-		public static void ConsulRegist(ConsulSetting setting)
-		{
-			var consulClient = new ConsulClient(c =>
-			{
-				c.Address = new Uri(setting.ConsulService);
-				c.Datacenter = setting.Datacenter;
-			});
-
-			consulClient.Agent.ServiceRegister(new AgentServiceRegistration
-			{
-				ID = Guid.NewGuid().ToString(),
-				Name =  setting.ServerName,
-				Address = setting.Ip,
-				Port = setting.Port,
-				Tags = setting.Tags,
-				Check = new AgentServiceCheck()
-				{
-					Interval = TimeSpan.FromSeconds(12),
-                    HTTP = $"http://{setting.Ip}:{setting.Port}/healthz",
-                    // HTTP = "http://127.0.0.1:5726/healthz",
-                    Timeout = TimeSpan.FromSeconds(5),
-					DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(30)
-				}
-			});
-		}
-
 		public static List<string> GetConsulServers(string consulService, string datacenter, string serverName, string method)
 		{
 			var consulClient = new ConsulClient(c =>
