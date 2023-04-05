@@ -1,5 +1,6 @@
 ﻿{
   "MySqlConnection": "database=OcelotDB; Data Source=127.0.0.1; User Id =root; password=weitianhua;",
+  "CsRedis": "127.0.0.1:6000,password=,defaultDatabase=0,poolsize=50,ssl=false,writeBuffer=10240,prefix=cs_redis_",
   "GlobalConfiguration": {
     "ReRouteIsCaseSensitive": false, // 路由是否区分大小写
     "RequestIdKey": "OcRequestId",
@@ -7,27 +8,53 @@
     "ServiceDiscoveryProvider": {
       "Host": "127.0.0.1",
       "Port": 8500,
-      "Type": "Consul"
+      "Type": "Consul",
+      "Token": "",
+      "ConfigurationKey": "ApiGatewayConfiguration",
+      "PollingInterval": 0
+    },
+    "RateLimitOptions": {
+      "ClientIdHeader": "ClientId",
+      "QuotaExceededMessage": "",
+      "RateLimitCounterPrefix": "ocelot",
+      "DisableRateLimitHeaders": false,
+      "HttpStatusCode": 429
+    },
+    "QoSOptions": {
+      "ExceptionsAllowedBeforeBreaking": 0,
+      "DurationOfBreak": 0,
+      "TimeoutValue": 0
+    },
+    "LoadBalancerOptions": {
+      "Type": "RoundRobin",
+      "Key": "",
+      "Expiry": 0
+    },
+    "HttpHandlerOptions": {
+      "AllowAutoRedirect": false,
+      "UseCookieContainer": false,
+      "UseTracing": false,
+      "UseProxy": true
     }
   },
   "Routes": [
-    {
+    //{
 
-      "DownstreamPathTemplate": "/{url}", // 下游服务转发地址模板
-      "DownstreamScheme": "http", // 下游服务http schema
-      "UpstreamPathTemplate": "/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "LoadBalancerOptions": { //负载均衡的算法
-        "Type": "LeastConnection" // LeastConnection – 将请求发往最空闲的那个服务器;  RoundRobin – 轮流发送; NoLoadBalance – 总是发往第一个请求或者是服务发现
-      },
-      //"DownstreamHostAndPorts": [
-      //  {
-      //    "Host": "localhost",
-      //    "Port": 5726
-      //  }
-      //],
-      "UseServiceDiscovery": true,
-      "ServiceName": "DataConApi"
-    }
+    //  "DownstreamPathTemplate": "/{url}", // 下游服务转发地址模板
+    //  "DownstreamScheme": "http", // 下游服务http schema
+    //  "UpstreamPathTemplate": "/{url}",
+    //  "UpstreamHttpMethod": [ "Get", "Post" ],
+    //  "LoadBalancerOptions": { //负载均衡的算法
+    //    "Type": "LeastConnection" // LeastConnection – 将请求发往最空闲的那个服务器;  RoundRobin – 轮流发送; NoLoadBalance – 总是发往第一个请求或者是服务发现
+    //  },
+    //  //"DownstreamHostAndPorts": [
+    //  //  {
+    //  //    "Host": "localhost",
+    //  //    "Port": 5726
+    //  //  }
+    //  //],
+    //  "UseServiceDiscovery": true,
+    //  "ServiceName": "DataConApi"
+    //}
   ]
 }

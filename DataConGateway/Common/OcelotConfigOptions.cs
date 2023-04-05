@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ocelot.Configuration.File;
 
 namespace DataConGateway.Common
 {
     public class OcelotConfigOptions
     {
         public string MySqlConnection { get; set; }
+
+        public FileGlobalConfiguration GlobalConfiguration { get; set; }
 
         /// <summary>
         /// 是否启用定时器， 默认不启动

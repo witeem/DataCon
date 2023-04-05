@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Ocelot.Configuration.Creator;
 using Ocelot.Configuration.Repository;
+using Ocelot.DependencyInjection;
 using Ocelot.Logging;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,12 @@ namespace DataConGateway.OcelotConfigExtends
             _option = option;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             if (_option.EnableTimer)
             {
                 _logger.LogInformation($"{nameof(DbConfigurationPoller)} is starting.");
-                _timer = new Timer(async x => 
+                _timer = new Timer(async x =>
                 {
                     if (_polling) return;
                     _polling = true;
@@ -47,8 +48,10 @@ namespace DataConGateway.OcelotConfigExtends
                     _polling = false;
                 }, null, _option.TimerDelay, _option.TimerDelay);
             }
-
-            return Task.CompletedTask;
+            else
+            {
+                await Poll();
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

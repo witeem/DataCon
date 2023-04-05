@@ -1,6 +1,7 @@
 ﻿using DataConGateway.Common;
 using DataConGateway.OcelotConfigExtends;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Ocelot.Configuration.Repository;
 using Ocelot.DependencyInjection;
@@ -18,8 +19,12 @@ namespace DataConGateway
             builder.Services.AddSingleton(
                 resolver => resolver.GetRequiredService<IOptions<OcelotConfigOptions>>().Value);
 
+            // 删除默认的 IFileConfigurationRepository
+            builder.Services.RemoveAll<IFileConfigurationRepository>();
+
             //配置文件仓储注入
-            builder.Services.AddSingleton<IFileConfigurationRepository, MysqlFileConfigurationRepository>();
+            // builder.Services.AddSingleton<IFileConfigurationRepository, MysqlFileConfigurationRepository>();
+            builder.Services.AddSingleton<IFileConfigurationRepository, RedisFileConfigurationRepository>();
 
             //注册后端服务
             builder.Services.AddHostedService<DbConfigurationPoller>();
