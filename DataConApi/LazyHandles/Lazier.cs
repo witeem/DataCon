@@ -1,4 +1,4 @@
-﻿namespace DataConApi
+﻿namespace DataConApi.LazyHandles
 {
     public class Lazier<T> : Lazy<T> where T : class
     {

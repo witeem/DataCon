@@ -2,7 +2,7 @@ using SqlSugar;
 using System;
 
 
-namespace DataConCore;
+namespace DataConCore.Handels;
 
 public class SqlSugarHandel
 {
@@ -43,7 +43,7 @@ public class SqlSugarHandel
     {
         if (msSqlDb == null)
         {
-            lock(conlock)
+            lock (conlock)
             {
                 if (msSqlDb == null)
                 {
