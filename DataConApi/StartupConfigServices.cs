@@ -1,7 +1,7 @@
 using DataCon.IApplication;
 using DataCon.IRepositories;
 using DataCon.Repositories;
-using DataConApi;
+using DataConApi.LazyHandles;
 using DataConCore;
 using DataConCore.Handels;
 using DataConCore.Handels.Consul;

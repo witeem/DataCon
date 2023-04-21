@@ -1,5 +1,5 @@
 ﻿using DataCon.IRepositories;
-using DataConCore;
+using DataConCore.Handels;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
